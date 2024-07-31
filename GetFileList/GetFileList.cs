@@ -5,20 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
+using Microsoft.VisualBasic;
 
 namespace GetFileList
 {
     internal class GetFileList
     {
         /// <summary>
-        ///   プログラムのエントリ
+        ///   Entrance to this program
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">parameters</param>
         static void Main(string[] args)
         {
             //exit program when no command line parameter
             if (args.Length < 1)
             {
+                Console.Error.WriteLine("Error: No Parameter.");
                 return;
             }
 
@@ -26,28 +28,28 @@ namespace GetFileList
         }
 
         /// <summary>
-        ///   指定のパスのディレクトリーとファイルの一覧を出力する
+        ///   Output directories/files listing
         /// </summary>
-        /// <param name="Pathname">出力パス</param>
+        /// <param name="Pathname">target path</param>
         static void OutputFileList(string Pathname)
         {
-            IEnumerable<string> files; // ディレクトリー／ファイルの一覧を格納する
-            var DirNames = new List<string>(); // ディレクトリの一覧を格納する(サブディレクトリ出力呼び出しのため)
+            IEnumerable<string> files; // strage directories / files listing
+            var DirNames = new List<string>(); // strage list of directories. for call to recursive output.
 
             try
             {
-                // ディレクトリーの一覧を出力する
+                // output directory list
                 files = Directory.EnumerateDirectories(
                     Pathname,
                     "*",
                     SearchOption.TopDirectoryOnly);
                 foreach (string file in files)
                 {
-                    DirNames.Add(file); //ディレクトリーの一覧は保存しておく
-                    Console.WriteLine("<<DIR>>   " + file);
+                    DirNames.Add(file); // memory to directories.
+                    Console.WriteLine("<<DIR>>\t" + file);
                 }
 
-                // ファイルの一覧を出力する
+                // output file list.
                 files =
                     Directory.EnumerateFiles(
                       Pathname,
@@ -55,10 +57,12 @@ namespace GetFileList
                       SearchOption.TopDirectoryOnly);
                 foreach (string file in files)
                 {
-                    Console.WriteLine("<<FILE>>  " + file);
+                    FileInfo info = new FileInfo(file);
+                    //Console.WriteLine("<<FILE>>\t" + file);
+                    Console.WriteLine(info.Length.ToString() + "\t" + info.Name);
                 }
 
-                // (再帰)サブディレクトリーの出力を行う
+                // (recurcive) output sub directory information.
                 foreach (string dir in DirNames)
                 {
                     OutputFileList(dir);
