@@ -46,7 +46,7 @@ namespace GetFileList
                 foreach (string file in files)
                 {
                     DirNames.Add(file); // memory to directories.
-                    Console.WriteLine("<<DIR>>\t" + file);
+                    Console.WriteLine("<<DIR>>\t\t" + file);
                 }
 
                 // output file list.
@@ -57,9 +57,18 @@ namespace GetFileList
                       SearchOption.TopDirectoryOnly);
                 foreach (string file in files)
                 {
+                    string FileLength;
                     FileInfo info = new FileInfo(file);
-                    //Console.WriteLine("<<FILE>>\t" + file);
-                    Console.WriteLine(info.Length.ToString() + "\t" + info.Name);
+                    try
+                    {
+                        FileLength = info.Length.ToString();
+                    }
+                    catch
+                    {
+                        FileLength = "";
+                    }
+
+                    Console.WriteLine("<<FILE>>\t" + FileLength + "\t" + file);
                 }
 
                 // (recurcive) output sub directory information.
