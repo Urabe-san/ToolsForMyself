@@ -45,7 +45,19 @@ namespace GetFileList
                 {
                     // memory to directories.
                     DirNames.Add(file);
-                    Console.WriteLine("<<DIR>>\t\t" + file);
+
+                    string TimeStamp;
+                    FileInfo info = new FileInfo(file);
+                    try
+                    {
+                        TimeStamp = info.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+                    catch
+                    {
+                        TimeStamp = "";
+                    }
+
+                    Console.WriteLine("<<DIR>>\t" + TimeStamp + "\t\t" + file);
                 }
 
                 // output file list.
@@ -57,17 +69,20 @@ namespace GetFileList
                 foreach (string file in files)
                 {
                     string FileLength;
+                    string TimeStamp;
                     FileInfo info = new FileInfo(file);
                     try
                     {
                         FileLength = info.Length.ToString();
+                        TimeStamp = info.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
                     }
                     catch
                     {
                         FileLength = "";
+                        TimeStamp = "";
                     }
 
-                    Console.WriteLine("<<FILE>>\t" + FileLength + "\t" + file);
+                    Console.WriteLine("<<FILE>>\t" + TimeStamp + "\t" + FileLength + "\t" + file);
                 }
 
                 // (recursive) output sub directory information.
