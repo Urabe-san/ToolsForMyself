@@ -25,6 +25,7 @@ namespace GetFileList
             }
 
             OutputFileList(args[0]);
+            Console.Error.WriteLine("Finished.");
         }
 
         /// <summary>
@@ -33,19 +34,17 @@ namespace GetFileList
         /// <param name="Pathname">target path</param>
         static void OutputFileList(string Pathname)
         {
-            IEnumerable<string> files; // strage directories / files listing
-            var DirNames = new List<string>(); // strage list of directories. for call to recursive output.
+            IEnumerable<string> files; // storage directories / files listing
+            var DirNames = new List<string>(); // storage list of directories. for call to recursive output.
 
             try
             {
                 // output directory list
-                files = Directory.EnumerateDirectories(
-                    Pathname,
-                    "*",
-                    SearchOption.TopDirectoryOnly);
+                files = Directory.GetDirectories(Pathname);
                 foreach (string file in files)
                 {
-                    DirNames.Add(file); // memory to directories.
+                    // memory to directories.
+                    DirNames.Add(file);
                     Console.WriteLine("<<DIR>>\t\t" + file);
                 }
 
@@ -71,7 +70,7 @@ namespace GetFileList
                     Console.WriteLine("<<FILE>>\t" + FileLength + "\t" + file);
                 }
 
-                // (recurcive) output sub directory information.
+                // (recursive) output sub directory information.
                 foreach (string dir in DirNames)
                 {
                     OutputFileList(dir);
@@ -82,6 +81,7 @@ namespace GetFileList
                 Console.WriteLine(ex.ToString());
             }
 
+            //dispose
             DirNames.Clear();
             files = null;
         }
