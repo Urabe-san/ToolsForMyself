@@ -40,49 +40,73 @@ namespace GetFileList
             try
             {
                 // output directory list
-                files = Directory.GetDirectories(Pathname);
-                foreach (string file in files)
+                try
                 {
-                    // memory to directories.
-                    DirNames.Add(file);
-
-                    string TimeStamp;
-                    FileInfo info = new FileInfo(file);
-                    try
+                    files = Directory.GetDirectories(Pathname);
+                    foreach (string file in files)
                     {
-                        TimeStamp = info.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
-                    }
-                    catch
-                    {
-                        TimeStamp = "";
-                    }
+                        // memory to directories.
+                        DirNames.Add(file);
 
-                    Console.WriteLine("<<DIR>>\t" + TimeStamp + "\t\t" + file);
+                        string TimeStamp;
+                        FileInfo info = new FileInfo(file);
+
+                        try
+                        {
+                            TimeStamp = info.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
+                        }
+                        catch (Exception ex)
+                        {
+                            TimeStamp = "";
+                            Console.Error.WriteLine("[ERROR_PATH] " + file);
+                            Console.Error.WriteLine(ex.ToString());
+                        }
+
+                        Console.WriteLine("<<DIR>>\t" + TimeStamp + "\t\t" + file);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.Error.WriteLine("[ERROR_PATH] " + Pathname);
+                    Console.Error.WriteLine(ex.ToString());
                 }
 
                 // output file list.
-                files =
-                    Directory.EnumerateFiles(
-                      Pathname,
-                      "*",
-                      SearchOption.TopDirectoryOnly);
-                foreach (string file in files)
+                try
                 {
-                    string FileLength;
-                    string TimeStamp;
-                    FileInfo info = new FileInfo(file);
-                    try
-                    {
-                        FileLength = info.Length.ToString();
-                        TimeStamp = info.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
-                    }
-                    catch
-                    {
-                        FileLength = "";
-                        TimeStamp = "";
-                    }
+                    files =
+                        Directory.EnumerateFiles(
+                          Pathname,
+                          "*",
+                          SearchOption.TopDirectoryOnly);
 
-                    Console.WriteLine("<<FILE>>\t" + TimeStamp + "\t" + FileLength + "\t" + file);
+                    foreach (string file in files)
+                    {
+                        string FileLength;
+                        string TimeStamp;
+                        FileInfo info;
+
+                        try
+                        {
+                            info = new FileInfo(file);
+                            FileLength = info.Length.ToString();
+                            TimeStamp = info.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
+                        }
+                        catch (Exception ex)
+                        {
+                            FileLength = "";
+                            TimeStamp = "";
+                            Console.Error.WriteLine("[ERROR_FILE] " + file);
+                            Console.Error.WriteLine(ex.ToString());
+                        }
+
+                        Console.WriteLine("<<FILE>>\t" + TimeStamp + "\t" + FileLength + "\t" + file);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.Error.WriteLine("[ERROR_PATH] " + Pathname);
+                    Console.Error.WriteLine(ex.ToString());
                 }
 
                 // (recursive) output sub directory information.
@@ -93,7 +117,7 @@ namespace GetFileList
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+				Console.Error.WriteLine(ex.ToString());
             }
 
             //dispose
