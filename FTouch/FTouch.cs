@@ -43,15 +43,16 @@ namespace FTouch
         /// </summary>
         static void usage()
         {
-            Console.WriteLine("USAGE");
-            Console.WriteLine("FTouch option timestamp filepath \n");
-            Console.WriteLine("option");
-            Console.WriteLine(" C or c: change create time");
-            Console.WriteLine(" M or m: change modify time");
-            Console.WriteLine(" A or a: change access time");
+            Console.Write("FTouch by Urabe-san. Aug. 2024\n\n");
+            Console.WriteLine("USAGE: ");
+            Console.WriteLine(" FTouch [option] [timestamp] [filepath] \n");
+            Console.WriteLine("  option");
+            Console.WriteLine("   C or c: change create time");
+            Console.WriteLine("   M or m: change modify time");
+            Console.WriteLine("   A or a: change access time");
             Console.WriteLine("");
-            Console.WriteLine("timestamp");
-            Console.WriteLine(" yyyy-MM-ddTHH:mm:ss");
+            Console.WriteLine("  timestamp");
+            Console.WriteLine("   yyyy-MM-ddTHH:mm:ss");
             Console.WriteLine("");
         }
 
