@@ -3,6 +3,9 @@
   Only for Windows.
   This program source use syscall.
 */
+/*
+  go build -a -ldflags="-s -w" -trimpath -o touch.exe
+*/
 
 package main
 
@@ -26,12 +29,35 @@ func usage() {
 	fmt.Printf("   yyyy-MM-ddTHH:mm:ss\n\n")
 }
 
+// remarks:
+//
+//	If it convert the input characters to a date without modifying, Golang will treat it as a UTC date.
+//	When parsing a date/time, if you use "ParseInLocation()" and set the Location to "UTC", it seems to be parsed as local time.
+//	However, I could not find any documentation that explains this behavior.
+//	I wrote the following source code and tried and tested it.
+//
+//	  var location *time.Location
+//	  location, _ = time.LoadLocation("local")
+//	  fmt.Println(location.String())
+//	  time.Local = location
+//	  fmt.Println(location.String())
+//
+//	  ParseTime, _ = time.Parse(layout, timestamp)
+//	  ParseTime, _ = time.ParseInLocation(layout, timestamp, location)
+//	  ParseTime, _ = time.ParseInLocation(layout, timestamp, time.Local)
+//	  ParseTime, _ = time.ParseInLocation(layout, timestamp, time.UTC)
+//
+//	I don't know the specifications or reasons for this behavior.
 func StringToTime(timestamp string) time.Time {
+	var result time.Time
 	var ParseTime time.Time
 	var layout string = "2006-01-02T15:04:05"
 
-	ParseTime, _ = time.Parse(layout, timestamp)
-	return ParseTime
+	ParseTime, _ = time.ParseInLocation(layout, timestamp, time.UTC) //Convert UTC to Local Date and Time
+	fmt.Println(ParseTime.Local().String())
+	result = ParseTime
+
+	return result
 }
 
 func ChangeTimeStamp(option string, TimeValue time.Time, fullpathname string) bool {
@@ -49,7 +75,8 @@ func ChangeTimeStamp(option string, TimeValue time.Time, fullpathname string) bo
 
 	defer syscall.Close(handle)
 
-	FileDateTime = syscall.NsecToFiletime(TimeValue.UnixNano())
+	//FileDateTime = syscall.NsecToFiletime(TimeValue.UnixNano())
+	FileDateTime = syscall.NsecToFiletime(TimeValue.Local().UnixNano())
 	if "C" == option || "c" == option {
 		err = syscall.SetFileTime(handle, &FileDateTime, nil, nil)
 	} else if "M" == option || "m" == option {
