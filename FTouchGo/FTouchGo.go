@@ -32,7 +32,7 @@ func usage() {
 // remarks:
 //
 //	If it convert the input characters to a date without modifying, Golang will treat it as a UTC date.
-//	When parsing a date/time, if you use "ParseInLocation()" and set the Location to "UTC", it seems to be parsed as local time.
+//	When parsing a date/time, if you use "ParseInLocation()" and set the Location to "time.Local", it seems to be parsed as local time.
 //	However, I could not find any documentation that explains this behavior.
 //	I wrote the following source code and tried and tested it.
 //
@@ -53,8 +53,8 @@ func StringToTime(timestamp string) time.Time {
 	var ParseTime time.Time
 	var layout string = "2006-01-02T15:04:05"
 
-	ParseTime, _ = time.ParseInLocation(layout, timestamp, time.UTC) //Convert UTC to Local Date and Time
-	fmt.Println(ParseTime.Local().String())
+	ParseTime, _ = time.ParseInLocation(layout, timestamp, time.Local) //Convert UTC to Local Date and Time
+	//fmt.Println(ParseTime.String())
 	result = ParseTime
 
 	return result
