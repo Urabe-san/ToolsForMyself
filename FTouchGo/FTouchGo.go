@@ -12,14 +12,20 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"syscall" // syscall for Windows platform.
 	"time"    //https://golang.org/pkg/time/#Location
 )
 
 func usage() {
+	var execfile string
+
+	path, _ := os.Executable()
+	execfile = filepath.Base(path)
+
 	fmt.Printf("FTouchGo by Urabe-san. Aug. 2024 \n\n")
 	fmt.Printf("USAGE: \n")
-	fmt.Printf(" FTouchGo [option] [timestamp] [filename]")
+	fmt.Printf(" " + execfile + " [option] [timestamp] [filename]")
 	fmt.Printf("  option\n")
 	fmt.Printf("   C or c: change create time\n")
 	fmt.Printf("   M or m: change modify time\n")
