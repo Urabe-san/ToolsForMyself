@@ -20,6 +20,8 @@ import (
 func usage() {
 	var execfile string
 
+	//To accommodate cases where the project name and executable file do not match,
+	//the executable file name is obtained dynamically.
 	path, _ := os.Executable()
 	execfile = filepath.Base(path)
 
@@ -66,6 +68,11 @@ func StringToTime(timestamp string) time.Time {
 	return result
 }
 
+// remarks:
+//
+//	This method uses syscall and only for Windows.
+//	Logic for Linux will be added later.
+//	There are no plans to implement logic for MacOS.
 func ChangeTimeStamp(option string, TimeValue time.Time, fullpathname string) bool {
 	var result bool = false
 	var err error
@@ -81,13 +88,15 @@ func ChangeTimeStamp(option string, TimeValue time.Time, fullpathname string) bo
 
 	defer syscall.Close(handle)
 
-	//FileDateTime = syscall.NsecToFiletime(TimeValue.UnixNano())
-	FileDateTime = syscall.NsecToFiletime(TimeValue.Local().UnixNano())
-	if "C" == option || "c" == option {
+	// fmt.Printf("TimeValue: %s, TimeValue.UTC: %s.\n", TimeValue.String(), TimeValue.UTC().String())
+	// fmt.Printf("TimeValue: %d, TimeValue.UTC: %d.\n", TimeValue.UnixNano(), TimeValue.UTC().UnixNano())
+
+	FileDateTime = syscall.NsecToFiletime(TimeValue.Local().UnixNano()) // same value as "TimeValue.UnixNano()"
+	if option == "C" || option == "c" {
 		err = syscall.SetFileTime(handle, &FileDateTime, nil, nil)
-	} else if "M" == option || "m" == option {
+	} else if option == "M" || option == "m" {
 		err = syscall.SetFileTime(handle, nil, nil, &FileDateTime)
-	} else if "A" == option || "a" == option {
+	} else if option == "A" || option == "a" {
 		err = syscall.SetFileTime(handle, nil, &FileDateTime, nil)
 	}
 
@@ -111,14 +120,13 @@ func main() {
 		return
 	}
 
-	option = os.Args[1]
-	timestamp = os.Args[2]
-	filename = os.Args[3]
+	option = os.Args[1]    //first params is operation option.
+	timestamp = os.Args[2] //second params is set timestamp.
+	filename = os.Args[3]  //third params is target filename.
 
 	TimestampValue = StringToTime(timestamp)
 
-	if false == ChangeTimeStamp(option, TimestampValue, filename) {
+	if !ChangeTimeStamp(option, TimestampValue, filename) {
 		fmt.Printf("ERROR: fail to change timestamp.\n")
 	}
-
 }
