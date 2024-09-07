@@ -1,0 +1,23 @@
+/ToolsForMyself/GetWinProductKey
+Windowsのプロダクトキーを取得して表示します。
+Microsoftのアカウントと結びついているプロダクトキーを使っている場合は、何も返されないか、正しくないプロダクトキーが返される場合があります。
+Insider Previewでクリーンインストールした場合も正しいプロダクトキーが表示されないと思います。
+(プロダクトキーを表示するフリーソフトをいくつか試してみましたが、返されるプロダクトキーはバラバラでした)
+
+他にも検証をしたところ、レジストリに記載されている値から取得したものは、インストール時のプロダクトキーが設定されている場合があります。
+試したレジストリの階層は以下の２つです。
+
+\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\BackupProductKeyDefault
+\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DigitalProductId
+
+企業で用いているEnterprise版や教育現場で用いているEducation版の挙動は試せませんので不明です。
+
+
+
+/ToolsForMyself/GetWinProductKeyC
+
+C++版ですが同じもロジックを用いたものではありません。
+WMICやインターネットに記載があるPowerShellを用いたものと同じ結果が返ります。
+
+実は生成AIに作ってもらったソースコードを「それなりに動作する」ように手直ししたものです。
+
