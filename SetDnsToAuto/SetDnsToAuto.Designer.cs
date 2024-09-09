@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.labelWarning = new System.Windows.Forms.Label();
-            this.textboxTargetAdapter = new System.Windows.Forms.TextBox();
             this.buttonExecute = new System.Windows.Forms.Button();
+            this.comboboxTargetAdapter = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labelWarning
@@ -42,14 +42,6 @@
             this.labelWarning.TabIndex = 0;
             this.labelWarning.Text = "Reset for DNS";
             // 
-            // textboxTargetAdapter
-            // 
-            this.textboxTargetAdapter.Location = new System.Drawing.Point(119, 12);
-            this.textboxTargetAdapter.Name = "textboxTargetAdapter";
-            this.textboxTargetAdapter.ReadOnly = true;
-            this.textboxTargetAdapter.Size = new System.Drawing.Size(237, 22);
-            this.textboxTargetAdapter.TabIndex = 1;
-            // 
             // buttonExecute
             // 
             this.buttonExecute.Location = new System.Drawing.Point(281, 40);
@@ -60,13 +52,22 @@
             this.buttonExecute.UseVisualStyleBackColor = true;
             this.buttonExecute.Click += new System.EventHandler(this.buttonExecute_Click);
             // 
+            // comboboxTargetAdapter
+            // 
+            this.comboboxTargetAdapter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboboxTargetAdapter.FormattingEnabled = true;
+            this.comboboxTargetAdapter.Location = new System.Drawing.Point(119, 12);
+            this.comboboxTargetAdapter.Name = "comboboxTargetAdapter";
+            this.comboboxTargetAdapter.Size = new System.Drawing.Size(237, 23);
+            this.comboboxTargetAdapter.TabIndex = 1;
+            // 
             // SetDnsToAuto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 76);
             this.Controls.Add(this.buttonExecute);
-            this.Controls.Add(this.textboxTargetAdapter);
+            this.Controls.Add(this.comboboxTargetAdapter);
             this.Controls.Add(this.labelWarning);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -82,8 +83,8 @@
         #endregion
 
         private System.Windows.Forms.Label labelWarning;
-        private System.Windows.Forms.TextBox textboxTargetAdapter;
         private System.Windows.Forms.Button buttonExecute;
+        private System.Windows.Forms.ComboBox comboboxTargetAdapter;
     }
 }
 

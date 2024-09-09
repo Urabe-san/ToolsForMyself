@@ -21,9 +21,21 @@ namespace SetDnsToAuto
 
         private void SetDnsToAuto_Load(object sender, EventArgs e)
         {
-            textboxTargetAdapter.Text = GetCurrentNetworkAdaputerName();
+            string[] niclist = null;
+            niclist = GetCurrentNetworkAdaputerName();
 
-            if(string.IsNullOrEmpty(textboxTargetAdapter.Text))
+            comboboxTargetAdapter.Items.Clear();
+            foreach (string nic in niclist)
+            {
+                comboboxTargetAdapter.Items.Add(nic);
+            }
+
+            if(0 < comboboxTargetAdapter.Items.Count)
+            {
+                comboboxTargetAdapter.SelectedIndex = 0;
+            }
+
+            if (string.IsNullOrEmpty(comboboxTargetAdapter.Text))
             {
                 buttonExecute.Enabled = false;
             }
@@ -36,25 +48,26 @@ namespace SetDnsToAuto
 
         private void buttonExecute_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textboxTargetAdapter.Text))
+            if (!string.IsNullOrEmpty(comboboxTargetAdapter.Text))
             {
-                SetDnsSettingToAuto(textboxTargetAdapter.Text);
+                SetDnsSettingToAuto(comboboxTargetAdapter.Text);
             }
         }
 
-        private string GetCurrentNetworkAdaputerName()
+        private string[] GetCurrentNetworkAdaputerName()
         {
-            string result = string.Empty;
+            List<string> result = new List<string>();
+            result.Clear();
 
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {
                 if (nic.OperationalStatus == OperationalStatus.Up)
                 {
-                    result = nic.Name;
+                    result.Add(nic.Name);
                 }
             }
 
-            return result;
+            return result.ToArray();
         }
 
         private void SetDnsSettingToAuto(string adapterName)
