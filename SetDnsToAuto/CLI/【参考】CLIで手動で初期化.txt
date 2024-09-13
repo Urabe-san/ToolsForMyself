@@ -1,0 +1,16 @@
+■ネットワークアダプタ(NIC)の一覧表示:
+netsh intarface show interface
+
+■手動設定
+netsh interface ipv4 set dnsservers name="<インターフェース名>" source=dhcp
+
+netsh interface ip set address "<インターフェース名>" dhcp
+netsh interface ip set dns "<インターフェース名>" dhcp
+
+■解消しない場合
+ネットワークリセット(要管理者権限)
+
+■レジストリのクリア
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces をクリア
+
+
