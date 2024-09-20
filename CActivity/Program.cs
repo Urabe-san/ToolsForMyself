@@ -11,10 +11,27 @@ namespace CActivity
     {
         static void Main(string[] args)
         {
-            Ping pingSender = new Ping();
-            PingReply reply = pingSender.Send(args[0].Trim(), 100);
+            bool IsExistError = false;
+            string ErrorMessage = string.Empty;
+            PingReply reply = null;
 
-            if (reply.Status == IPStatus.Success)
+            Ping pingSender = new Ping();
+
+            try
+            {
+                 reply = pingSender.Send(args[0].Trim(), 100);
+            }
+            catch (Exception ex)
+            {
+                IsExistError = true;
+                ErrorMessage = ex.Message;
+            }
+
+            if (IsExistError)
+            {
+                Console.WriteLine("Target: {0}, Status: Unknown Error - {1}.", args[0].Trim(), ErrorMessage);
+            }
+            else if (reply.Status == IPStatus.Success)
             {
                 Console.WriteLine("Target: {0}, Status: Echo OK.", reply.Address.ToString());
             }
