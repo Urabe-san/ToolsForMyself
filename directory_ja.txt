@@ -2,10 +2,54 @@
 /Avatars
 プロフィール用の画像
 
+/CActivity
+[Windows] [C#] [Concole]
+指定のホスト名、IPアドレスが生きているか確認する
+バッチファイルで連続確認しやすいようにしています
+※仕組みはPINGと同じくエコーを取得しているだけです
+
 /FTouch
 [Windows] [C#] [Concole]
 ファイルのタイムスタンプを変更するプログラム
 
+/FTouchGo
+[Windows] [Go] [Concole]
+ファイルのタイムスタンプを変更するプログラム
+Windowsに依存
+
+/FTouchGUI
+[Windows] [C#] [GUI]
+ファイルのタイムスタンプを変更するプログラムのWindowsForm版
+
+/GetDirectorySize
+[Windows] [Go] [Concole]
+ディレクトリサイズの取得
+
 /GetFileList
 [Windows] [C#] [Concole]
 指定した階層のディレクトリー／ファイルの一覧を取得するプログラム
+
+/GetWinProductKey
+[Windows] [C#] [Concole]
+Windowsのプロダクトキーを取得する
+
+/GetWinProductKey/GetWinProductKeyC
+[Windows] [C++] [Concole]
+Windowsのプロダクトキーを取得する
+
+/OnePing
+[Windows] [Linux] [Go] [Concole]
+1回のみのPING
+AIに生成してもらったコードを手直し
+
+/pretend
+[Windows] [C#] [Concole]
+ユーザー偽装のサンプル
+
+/SetDnsToAuto
+[Windows] [C#] [GUI]
+WindowsのネットワークアダプターのDNS設定を自動取得に設定する
+
+/URLEncDec
+[Windows] [C#] [GUI]
+指定された文字列をURLエンコード／URLデコードする
