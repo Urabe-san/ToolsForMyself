@@ -1,3 +1,8 @@
+/*
+  go build -a -ldflags="-s -w" -trimpath -o DiskUsage.exe
+  upx --lzma -o DiskUsageP.exe DiskUsage.exe
+*/
+
 package main
 
 import (
