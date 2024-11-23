@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UrlSomething));
             this.textboxOrigin = new System.Windows.Forms.TextBox();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonDecode = new System.Windows.Forms.Button();
@@ -41,7 +42,7 @@
             // textboxOrigin
             // 
             this.textboxOrigin.Location = new System.Drawing.Point(16, 15);
-            this.textboxOrigin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textboxOrigin.Margin = new System.Windows.Forms.Padding(4);
             this.textboxOrigin.Multiline = true;
             this.textboxOrigin.Name = "textboxOrigin";
             this.textboxOrigin.Size = new System.Drawing.Size(624, 84);
@@ -50,7 +51,7 @@
             // buttonClear
             // 
             this.buttonClear.Location = new System.Drawing.Point(649, 15);
-            this.buttonClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonClear.Margin = new System.Windows.Forms.Padding(4);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(69, 29);
             this.buttonClear.TabIndex = 2;
@@ -61,7 +62,7 @@
             // buttonDecode
             // 
             this.buttonDecode.Location = new System.Drawing.Point(541, 108);
-            this.buttonDecode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDecode.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDecode.Name = "buttonDecode";
             this.buttonDecode.Size = new System.Drawing.Size(100, 29);
             this.buttonDecode.TabIndex = 5;
@@ -72,7 +73,7 @@
             // textboxResult
             // 
             this.textboxResult.Location = new System.Drawing.Point(16, 144);
-            this.textboxResult.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textboxResult.Margin = new System.Windows.Forms.Padding(4);
             this.textboxResult.Multiline = true;
             this.textboxResult.Name = "textboxResult";
             this.textboxResult.Size = new System.Drawing.Size(624, 84);
@@ -81,7 +82,7 @@
             // buttonQuit
             // 
             this.buttonQuit.Location = new System.Drawing.Point(541, 236);
-            this.buttonQuit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonQuit.Margin = new System.Windows.Forms.Padding(4);
             this.buttonQuit.Name = "buttonQuit";
             this.buttonQuit.Size = new System.Drawing.Size(100, 29);
             this.buttonQuit.TabIndex = 0;
@@ -132,12 +133,12 @@
             this.Controls.Add(this.buttonDecode);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.textboxOrigin);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UrlSomething";
-            this.ShowIcon = false;
             this.Text = "UrlSomething";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UrlSomething_FormClosing);
             this.Load += new System.EventHandler(this.UrlSomething_Load);
