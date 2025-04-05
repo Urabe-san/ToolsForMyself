@@ -16,12 +16,14 @@ namespace DesktopNote
 {
     public partial class DesktopNote : Form
     {
-
         private const string FILE_NAME = "DesktopNote.txt";
+
+        private bool IsInConfig = false;
 
         public DesktopNote()
         {
             InitializeComponent();
+            IsInConfig = false;
         }
 
         private void DesktopNote_Load(object sender, EventArgs e)
@@ -56,6 +58,26 @@ namespace DesktopNote
             catch
             {
                 //nop
+            }
+        }
+
+        private void configToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!IsInConfig)
+            {
+                IsInConfig = true;
+                ConfigForm ConfigWindow = new ConfigForm();
+
+                ConfigWindow.WindowWidth = (uint)this.Width;
+                ConfigWindow.WindowHeight = (uint)this.Height;
+
+                ConfigWindow.ShowDialog();
+
+                this.Width = (int)ConfigWindow.WindowWidth;
+                this.Height = (int)ConfigWindow.WindowHeight;
+
+                ConfigWindow.Dispose();
+                IsInConfig=false;
             }
         }
 
@@ -127,6 +149,7 @@ namespace DesktopNote
                 return expression.Trim();
             }
         }
+
     }
 
 }
