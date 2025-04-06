@@ -9,8 +9,8 @@ namespace DesktopNote
 {
     internal class RegistryUtil
     {
-        private static string RegistrySubKey = "Software\\Urabe-san\\DesktopNote";
-
+        private static readonly string RegistrySubKey = "Software\\Urabe-san\\DesktopNote";
+        private static readonly string RegistrySubKeyBase = RegistrySubKey;
 
         // // Exanple for 'SubKeyExists' and 'ValueExists'.
         //if (SubKeyExists("Software\\YourCompanyName"))
@@ -22,7 +22,6 @@ namespace DesktopNote
         //    Console.WriteLine("Subkey 'Software\\YourCompanyName' does not exist.");
         //}
 
-        //// アプリケーションのキーの下に値が存在するか確認
         //if (ValueExists("WindowWidth"))
         //{
         //    Console.WriteLine("Value 'WindowWidth' exists.");
@@ -171,12 +170,13 @@ namespace DesktopNote
         {
             try
             {
+                //using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistrySubKey, true)) // Write permission is required
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistrySubKeyBase, true)) // Write permission is required
                 {
                     if (key != null)
                     {
                         key.DeleteSubKeyTree("DesktopNote", false); // Specifying false prevents an exception if the subkey does not exist
-                        Console.WriteLine("Deleted the registry key 'Software\\YourCompanyName\\DesktopNote'.");
+                        //Console.WriteLine("Deleted the registry key '" + RegistrySubKey +  "'.");
                     }
                 }
             }
