@@ -150,6 +150,10 @@ namespace DesktopNote
             }
         }
 
+        private void activeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.BringToFront();
+        }
     }
 
 }
