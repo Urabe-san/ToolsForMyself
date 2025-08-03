@@ -4,14 +4,14 @@ using System.Net.Sockets;
 using System.Text;
 using System.Diagnostics;
 
-class RawPingWithTTL
+class PingWithWinsock
 {
     static void Main(string[] args)
     {
         // 引数チェック
         if (args.Length != 1)
         {
-            Console.WriteLine("Usage    : RawPingWithTTL <IP address or hostname>");
+            Console.WriteLine("Usage    : PingWithWinsock <IP address or hostname>");
             Console.WriteLine("Important: You must run this program with administrator privileges (e.g., 'Run as Administrator') for proper functionality.");
             return;
         }
@@ -21,7 +21,20 @@ class RawPingWithTTL
         try
         {
             // ホスト名またはIPアドレスの解決
-            ip = Dns.GetHostEntry(host).AddressList[0];
+            //ip = Dns.GetHostEntry(host).AddressList[0];
+            ip = null;
+            IPHostEntry hostEntry = Dns.GetHostEntry(host);
+            foreach (IPAddress address in hostEntry.AddressList)
+            {
+                if (address.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    ip = address;
+                    if (ip != null)
+                    {
+                        break;
+                    }
+                }
+            }
         }
         catch
         {
